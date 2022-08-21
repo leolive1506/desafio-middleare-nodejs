@@ -22,7 +22,14 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request
+  if (!user.pro) {
+    if (user.todos.length === 10) {
+      return response.status(403).json({ message: 'Limit exceeded' });
+    }
+  } 
+
+  next()
 }
 
 function checksTodoExists(request, response, next) {
